@@ -1,0 +1,23 @@
+version: '3'
+services:
+  fast-api-boiler-app:
+    build: .
+    restart: "always"
+    ports:
+      - "8080:8081"
+#   db:
+#     image: mysql:8.0
+#     command: --default-authentication-plugin=mysql_native_password
+#     volumes:
+#       - mysql_data:/var/lib/mysql
+#     environment:
+#       MYSQL_ROOT_PASSWORD: HJBHa@JK6
+#       MYSQL_DATABASE: HKV
+#       MYSQL_PASSWORD: HBH@KJ
+#     ports:
+#       - "3306:3306"
+
+# volumes:
+#   mysql_data:
+
+
