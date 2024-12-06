@@ -4,9 +4,9 @@ from fastapi import Request, Depends
 from sqlalchemy.orm import Session
 from config import database
 from app_secrets.service.jwt_service import decode_token
-from repository.ems.service.user_repo_service import UserRepoService
-from repository.ems.model.ems import User
 from api.exception.errors import TokenException, NoPermissionException
+from repository.insurance.model.insurance import User
+from repository.insurance.service.user_repo_service import UserRepoService
 
 get_db = database.get_db
 
@@ -49,7 +49,7 @@ class RefreshTokenBearer(TokenBearer):
 def get_current_user(token_details : dict = Depends(AccessTokenBearer()), db : Session = Depends(get_db)):
     user_email = token_details["sub"]
 
-    return UserRepoService.fetchByEmail(user_email, db)
+    return UserRepoService.fetch_by_email(user_email, db)
 
 class RoleChecker:
     def __init__(self, allowed_roles : List[str]):

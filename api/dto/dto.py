@@ -24,9 +24,8 @@ class LoginResponse(BaseModel):
      refresh_token : str
      message : str
 
-
 class LifeInsuranceInput(BaseModel):
-     insurance_id : int 
+     id : Optional[int] = None
      basic_sum_assured : int
      duration : int
      interest : float
@@ -45,66 +44,19 @@ class UpdateInsuranceRequest(BaseModel):
      description : str
      life_insurance_details : Optional[List[LifeInsuranceInput]] = None
 
+class LifeInsuranceDto(BaseModel):
+     id : Optional[int] = None
+     basic_sum_assured : int
+     duration : int
+     interest : float
+     interest_type : str 
 
-
-     
-
-class AddAddressRequest(BaseModel):
-     first_line : str
-     second_line : Optional[str] = None
-     land_mark : Optional[str] = None
-     phone : str 
-     city : str
-     pincode : str
-     state : str
-
-class UpdateAddressRequest(BaseModel):
-     id : int
-     first_line : str
-     second_line : Optional[str] = None
-     land_mark : Optional[str] = None
-     phone : str 
-     city : str
-     pincode : str
-     state : str
-
-
-class AddEmployeeRequest(BaseModel):
-     firstname : str
-     lastname : str
-     contact : str
-     designation : str
-     eid : str
-     dept_id : int
-
-class UpdateEmployeeRequest(BaseModel):
-     firstname : str
-     lastname : str
-     contact : str
-     designation : str
-     eid : str
-     dept_id : int
-
-class AddressDto(BaseModel):
-     id : int
-     first_line : str
-     second_line : Optional[str] = None
-     land_mark : Optional[str] = None
-     phone : str 
-     city : str
-     pincode : str
-     state : str
-     eid : int
-     is_primary : bool
-
-class AddDepartmentBody(BaseModel):
-    name : str
-    description : str
-
-class UpdateDepartmentBody(BaseModel):
-    id : int = Field(min = 1)
-    name : str
-    description : str
+class InsuranceDto(BaseModel):
+     insurance_id : int
+     insurance_name : str
+     insurance_type : str
+     description : str
+     life_insurance_details : Optional[List[LifeInsuranceDto]] = None
 
 class UserDto(BaseModel):
      id : int 
@@ -112,29 +64,6 @@ class UserDto(BaseModel):
      lastname : str
      email : str
      role : str
-class DepartmentDto(BaseModel):
-     id : int
-     name : str
-     description : str 
-     approval_status : str
-     is_deleted : bool
-
-class EmployeeDto(BaseModel):
-     id : int
-     eid : str
-     firstname : str
-     lastname : str
-     contact : str
-     approval_status : str
-     is_deleted : bool
-     approved_by : Optional[UserDto] = None
-     approved_at : Optional[str] = None
-     deleted_by : Optional[UserDto] = None
-     deleted_at : Optional[str] = None
-     created_by : UserDto
-     designation : str
-     office_mail : Optional[str] = None
-     dept : DepartmentDto
 
 class ResponseDto(BaseModel, object):
       status_message : str = 'Success'

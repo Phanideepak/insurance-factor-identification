@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, Response
-from api.dto.dto import SignUpRequest, LoginRequest
+from api.dto.dto import LoginRequest, SignUpRequest
 from config import database
 from service.executor.auth_executor import AuthExecutor
 from sqlalchemy.orm import Session

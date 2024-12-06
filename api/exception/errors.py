@@ -1,12 +1,8 @@
 class ServiceException(Exception):
-     status_code = 500
-     status_message = 'Internal Error Occurred'
-     error_message = status_message
-
      def __init__(self, status_message = None, status_code = None, errorMessage = None):
-          self.status_code = status_code
-          self.status_message = status_message
-          self.error_message = errorMessage
+          self.status_code = status_code if status_code else 500
+          self.status_message = status_message if status_message else 'Internal Error Occured'
+          self.error_message = errorMessage if errorMessage else 'Internal Error Occured'
 
 class DataNotFoundException(ServiceException):
      def __init__(self, error_message = None):
