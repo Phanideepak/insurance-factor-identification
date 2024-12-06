@@ -1,76 +1,25 @@
 from typing import List
-from repository.ems.model.ems import User, Department, Address, Employee
-from api.dto.dto import UserDto, DepartmentDto, AddressDto, EmployeeDto
+
+from api.dto.dto import AddInsuranceRequest, InsuranceDto, LifeInsuranceDto, LifeInsuranceInput
+from repository.insurance.model.insurance import InsurancePlan, LifeInsuranceDetail
 
 
-def employeeModelToEmployeeDto(emp : Employee, dept : Department, created_user : User, deleted_user : User, approved_user: User):
-    empDto =  EmployeeDto(id = emp.id, eid = emp.eid, firstname = emp.firstname, 
-                       lastname = emp.lastname, contact = emp.contact,
-                       approval_status = ('Not Approved','Approved') [emp.is_approved], 
-                       approved_by = userModelToUserDto(approved_user),
-                       designation = emp.designation,
-                       office_mail = emp.office_mail,
-                       is_deleted = emp.is_deleted,
-                       deleted_by = userModelToUserDto(deleted_user), 
-                       created_by = userModelToUserDto(created_user), 
-                       dept = departmentModelToDepartmentDto(dept)
-                       )
-    
-    if emp.approved_at is not None:
-        empDto.approved_at = emp.approved_at.strftime("%m/%d/%Y, %H:%M:%S")
+class Mapper:
+    def toInsurancePlan(request : AddInsuranceRequest):
+        return InsurancePlan(insurance_name= request.insurance_name, insurance_type = request.insurance_type, description = request.description)
 
-    if emp.deleted_at is not None:
-        empDto.deleted_at = emp.deleted_at.strftime("%m/%d/%Y, %H:%M:%S")
-    
-    return empDto
+    def toLifeInsuranceDetail(insurance : InsurancePlan, detail : LifeInsuranceInput):
+        return LifeInsuranceDetail(insurance_id = insurance.id, basic_sum_assured = detail.basic_sum_assured, interest = detail.interest, interest_type = detail.interest_type, duration=detail.duration, plan_code = f'{insurance.insurance_name}-{detail.duration}'.replace(' ', '_').upper())
 
 
-def departmentModelToDepartmentDto(dept : Department):
-    return DepartmentDto(id = dept.id, name = dept.name, description=dept.description,
-                          approval_status = ('Not Approved','Approved') [dept.is_approved] 
-                          ,is_deleted = dept.is_deleted )
+class ResponseMapper:    
+    def toLifeInsuranceDto(detail : LifeInsuranceDetail):
+        return LifeInsuranceDto(id = detail.id, basic_sum_assured = detail.basic_sum_assured, duration = detail.duration, interest = detail.interest, interest_type = detail.interest_type)
 
-def departmentCacheToDepartmentDto(dept : dict):
-    return DepartmentDto(id = dept['id'], name = dept['name'], description=dept['description'],
-                          approval_status = ('Not Approved','Approved') [dept['is_approved']] 
-                          ,is_deleted = dept['is_deleted'])
+    @classmethod
+    def toLifeInsuranceDtos(cls, details : List[LifeInsuranceDetail]):
+        return [cls.toLifeInsuranceDto(detail) for detail in details]
 
-def departmentModelToDepartmentDtoList(depts : List):
-    deptDtos = []
-
-    for dept in depts:
-        deptDtos.append(departmentModelToDepartmentDto(dept))
-
-    return deptDtos
-
-def departmentCacheToDepartmentDtoList(depts : List[dict]):
-    deptDtos = []
-
-    for dept in depts:
-        deptDtos.append(departmentCacheToDepartmentDto(dept))
-
-    return deptDtos
-
-def userModelToUserDto(user : User):
-    if user is None:
-        return None
-    return UserDto(id = user.id, firstname = user.firstname, lastname = user.lastname, email = user.email, role = user.role.name)
-
-def userModelToUserDtoList(users : List):
-    userDtos = []
-
-    for user in users:
-        userDtos.append(userModelToUserDto(user))
-
-    return userDtos
-
-def addressModelToAddressDto(address : Address):
-    return AddressDto(id = address.id, eid = address.eid, first_line = address.first_line, second_line = address.second_line, land_mark = address.land_mark, phone = address.phone, city = address.city, pincode = address.pincode, state = address.state, is_primary = address.is_primary)
-
-def addressModelToAddressDtoList(addresses : List):
-    addressDtos = []
-
-    for address in addresses:
-        addressDtos.append(addressModelToAddressDto(address))
-
-    return addressDtos
+    @classmethod
+    def toInsuranceDto(cls, insurance : InsurancePlan, detail_list : List[LifeInsuranceDetail]):
+        return InsuranceDto(insurance_id = insurance.id, insurance_name = insurance.insurance_name, insurance_type = insurance.insurance_type, description = insurance.description, life_insurance_details = cls.toLifeInsuranceDtos(detail_list))

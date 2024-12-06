@@ -1,27 +1,24 @@
 
 from api.exception.errors import ValidationException
 
-
 def emptyMessage(field):
-        return (f"{field} cannot be blank or nill")
-    
+    return (f"{field} cannot be blank or nill")
+
 def noneMessage(field):
     return f"{field} cannot be nill"
 
 def zeroMessage(field):
     return f"{field} cannot be zero"
 
-def isLessThan(field,threshold):
+def isLessThan(field, threshold):
     return f"{field} cannot be less than {threshold}"
 
-def isGreaterThan(field,threshold):
+def isGreaterThan(field, threshold):
     return f"{field} cannot be greater than {threshold}"
 
-    
-class ValidationUtils():
-    def isTrue(expression : bool, message : str):
-        if not expression:
-            raise ValidationException(message)
+
+class ValidationUtils:
+
 
     def isEmpty(value : str, field: str):
         if value is None:
@@ -42,3 +39,8 @@ class ValidationUtils():
         else:
             if value == 0:
                 raise ValidationException(zeroMessage(field))
+    
+
+    def isTrue(expression : bool, message : str):
+        if not expression:
+            raise ValidationException(message)
