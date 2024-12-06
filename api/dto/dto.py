@@ -1,4 +1,4 @@
-from typing import Optional, TypeVar
+from typing import Optional, TypeVar, List
 from pydantic import BaseModel, Field
 
 T = TypeVar('T')
@@ -18,6 +18,36 @@ class SignUpResponse(BaseModel):
 class LoginRequest(BaseModel):
      email : str 
      password: str
+
+class LoginResponse(BaseModel):
+     access_token : str
+     refresh_token : str
+     message : str
+
+
+class LifeInsuranceInput(BaseModel):
+     insurance_id : int 
+     basic_sum_assured : int
+     duration : int
+     interest : float
+     interest_type : str
+
+class AddInsuranceRequest(BaseModel):
+     insurance_name : str
+     insurance_type : str
+     description : str
+     life_insurance_details : Optional[List[LifeInsuranceInput]] = None
+
+class UpdateInsuranceRequest(BaseModel):
+     insurance_id : int
+     insurance_name : str
+     insurance_type : str
+     description : str
+     life_insurance_details : Optional[List[LifeInsuranceInput]] = None
+
+
+
+     
 
 class AddAddressRequest(BaseModel):
      first_line : str
@@ -66,13 +96,6 @@ class AddressDto(BaseModel):
      state : str
      eid : int
      is_primary : bool
-
-
-
-class LoginResponse(BaseModel):
-     access_token : str
-     refresh_token : str
-     message : str
 
 class AddDepartmentBody(BaseModel):
     name : str

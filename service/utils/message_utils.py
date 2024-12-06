@@ -1,4 +1,11 @@
+
+
+
+
 class MessageUtils:
+    def password_confirm_password_should_match():
+        return 'Password and Confirm Password should be same'
+
     def invalid_password():
         return 'Invalid password'
     
