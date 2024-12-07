@@ -12,7 +12,20 @@ Topics that are Covered:
 
 ## List of CRUD API's Created
 
-1. Auth API :
+1. Auth API
    - Signup API
    - Login API
+
 2. Insurance API
+   - Add Insurance API (`ADMIN`)
+   - Edit Insurance API (`ADMIN`)
+   - Get All Insurances API (`ADMIN`, `AGENT`)
+   - Get Insurance by id API (`ADMIN`, `AGENT`, `CUSTOMER`)
+   - Delete Insurance by id API (`ADMIN`)
+
+3. Customer API
+   - Add Customer API 
+   - Edit Customer API
+   - Get All Customers API
+   - Get Customer By id API
+   - Delete Customer by id API

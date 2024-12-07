@@ -13,6 +13,10 @@ class LifeInsuranceDetailRepoService:
         db.query(LifeInsuranceDetail).filter(LifeInsuranceDetail.id == detail.id, LifeInsuranceDetail.plan_code == detail.plan_code).update({LifeInsuranceDetail.insurance_id : detail.insurance_id, LifeInsuranceDetail.basic_sum_assured : detail.basic_sum_assured, LifeInsuranceDetail.duration : detail.duration, LifeInsuranceDetail.interest : detail.interest, LifeInsuranceDetail.interest_type : detail.interest_type })
         db.commit()
     
+    def delete_by_insurance_id(insurance_id, db : Session):
+        db.query(LifeInsuranceDetail).filter(LifeInsuranceDetail.insurance_id == insurance_id).delete()
+        db.commit()
+    
     def fetch_by_id(id, db : Session):
         return db.query(LifeInsuranceDetail).filter(LifeInsuranceDetail.id == id).first()
     
