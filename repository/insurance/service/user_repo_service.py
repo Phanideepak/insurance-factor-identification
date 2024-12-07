@@ -17,8 +17,9 @@ class UserRepoService:
     def fetch_by_email(email, db : Session):
         return db.query(User).filter(User.email == email).first()
 
-    def validate_and_get_by_email(email, db : Session):
-        user = db.query(User).filter(User.email == email).first()
+    @classmethod
+    def validate_and_get_by_email(cls, email, db : Session):
+        user = cls.fetch_by_email(email, db)
         if user is None:
             raise DataNotFoundException(MessageUtils.entity_not_found('User', 'email', email))
 
@@ -26,9 +27,10 @@ class UserRepoService:
     
     def fetch_by_id(id, db : Session):
         return db.query(User).filter(User.id == id).first()
-    
-    def validate_and_get_by_id(id, db : Session):
-        user = db.query(User).filter(User.id == id).first()
+
+    @classmethod 
+    def validate_and_get_by_id(cls, id, db : Session):
+        user = cls.fetch_by_id(id, db)
         if user is None:
            raise DataNotFoundException(MessageUtils.entity_not_found('User', 'id', id))
 
