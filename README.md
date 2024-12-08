@@ -6,7 +6,7 @@ Topics that are Covered:
 - Custom Request Validation
 - JWT Authentication and Role Based Authorization
 - Alembic
-- Docker Integration
+- Docker Integration.
 - Redis Integration.
 - Global exception handler on rest api
 
@@ -24,7 +24,7 @@ Topics that are Covered:
    - Delete Insurance by id API (`ADMIN`)
 
 3. Customer API
-   - Add Customer API 
+   - Add Customer API
    - Edit Customer API
    - Get All Customers API
    - Get Customer By id API

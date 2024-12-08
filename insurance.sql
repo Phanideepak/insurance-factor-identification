@@ -3,7 +3,7 @@ create database insurance;
 use insurance;
 
 
-CREATE TABLE users (
+CREATE TABLE insurance.users (
   `id` int NOT NULL AUTO_INCREMENT,
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE users (
    PRIMARY KEY (`id`)
 );
 
-CREATE TABLE insurance_plan(
+CREATE TABLE insurance.insurance_plan(
    id int NOT NULL AUTO_INCREMENT,
    insurance_name VARCHAR(255) not null unique,
    insurance_type enum('LIFE', 'CHILD', 'RETIREMENT', 'SAVINGS', 'INVESTMENT') NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE insurance_plan(
    PRIMARY KEY (`id`)
 );
 
-CREATE TABLE life_insurance_details(
+CREATE TABLE insurance.life_insurance_details(
    id int NOT NULL AUTO_INCREMENT,
    insurance_id int not null,
    plan_code varchar(100) not null unique,
@@ -37,7 +37,7 @@ CREATE TABLE life_insurance_details(
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY (`id`),
-   FOREIGN KEY (`insurance_id`) REFERENCES insurance.insurance_plan(id),  
+   FOREIGN KEY (`insurance_id`) REFERENCES insurance.insurance_plan(id) 
 )
 
 CREATE TABLE insurance.customers(

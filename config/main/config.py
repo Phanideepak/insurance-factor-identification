@@ -12,10 +12,7 @@ class Config:
 class DevelopmentConfig(Config):
     # DEBUG = config('DEBUG', cast = bool)
     SQLALCHEMY_ECHO =True
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:@127.0.0.1/insurance?password=Alekya@736'
-    SQLALCHEMY_BINDS = {
-    'insurance_mysql': 'mysql://root:@127.0.0.1/insurance?password=Phani@dev',
-}
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://admin:@insurance-database.c9e46eiacv3q.eu-north-1.rds.amazonaws.com/insurance?password=Alekya736'
     
 class QAConfig(Config):
     pass
