@@ -13,3 +13,8 @@
 - cd package
 - zip -r ../deployment_package.zip .
 - cd ..
+
+
+- pip3 install  pydantic --target ./package  --platform=linux_aarch64 --only-binary=:all:
+
+- pip install --platform manylinux2014_aarch64  -r requirements.txt --target ./package --implementation cp --python-version 3.12 --only-binary=:all:
