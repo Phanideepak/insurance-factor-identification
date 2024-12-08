@@ -1,5 +1,5 @@
 from config.database import Base
-from sqlalchemy import Column, DECIMAL, Integer, String, Boolean,DateTime, Enum as sqlEnum, ForeignKey
+from sqlalchemy import Column, DECIMAL, Integer, String, Float, Boolean,DateTime, Enum as sqlEnum, ForeignKey
 from enum import Enum
 from datetime import datetime
 
@@ -18,6 +18,24 @@ class InsuranceType(Enum):
 class InterestType(Enum):
      SIMPLE = 'SIMPLE'
      COMPOUND = 'COMPOUND'
+
+class Healthy(Enum):
+     EXCELLENT = 'EXCELLENT'
+     GOOD = 'GOOD'
+     FAIR = 'FAIR'
+     POOR = 'POOR'
+
+class LifeStyle(Enum):
+     SEDENTARY = 'SEDENTARY'
+     ACTIVE = 'ACTIVE'
+     MODERATELY_ACTIVE = 'MODERATELY_ACTIVE'
+
+class OccupationType(Enum):
+     HIGH_RISK = 'HIGH_RISK'
+     MEDIUM_RISK = 'MEDIUM_RISK' 
+     LOW_RISK = 'LOW_RISK'
+
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -62,8 +80,8 @@ class LifeInsuranceDetail(Base):
     plan_code = Column(String, unique=True, nullable = False)
     basic_sum_assured = Column(Integer, nullable = False)
     duration = Column(Integer, nullable=False)
-    interest = Column(DECIMAL, nullable=False)
-    interest_type = Column(sqlEnum(InterestType, nullable = False))
+    interest = Column(Float, nullable=False)
+    interest_type = Column(sqlEnum(InterestType), nullable = False)
     is_deleted = Column(Boolean, default = False) 
     created_at = Column(DateTime(), default = datetime.now())
     updated_at = Column(DateTime(), onupdate = datetime.now(), default = datetime.now())  
@@ -76,3 +94,45 @@ class LifeInsuranceDetail(Base):
          self.duration = duration
          self.interest = interest
          self.interest_type = interest_type
+
+
+
+class Customer(Base):
+    __tablename__ = 'customers'
+    id = Column(Integer, primary_key= True, autoincrement= 'auto', index = True)
+    firstname = Column(String, nullable = False)
+    lastname = Column(String, nullable = False)
+    healthy = Column(sqlEnum(Healthy), nullable = False)
+    life_style = Column(sqlEnum(LifeStyle), nullable = False)
+    occupation = Column(String, nullable=False)
+    occupation_type = Column(sqlEnum(OccupationType), nullable = False)
+    city = Column(String, nullable=False)
+    pincode = Column(String, nullable=False)
+    lat = Column(String, nullable=False)
+    lng = Column(String, nullable=False)
+    first_line = Column(String, nullable=False)
+    last_line = Column(String)
+    land_mark = Column(String, nullable=False)
+    email = Column(String, nullable=False, unique=True)
+    phone = Column(String, nullable=False, unique=True)
+    is_deleted = Column(Boolean, default = False)
+    created_at = Column(DateTime(), default = datetime.now())
+    updated_at = Column(DateTime(), onupdate = datetime.now(), default = datetime.now())
+
+    def __init__(self, firstname, lastname, healthy, life_style, occupation, occupation_type, city, pincode, lat, lng, first_line, last_line, land_mark, email, phone, id = None):
+         self.id = id
+         self.firstname = firstname
+         self.lastname = lastname
+         self.healthy = healthy
+         self.life_style = life_style
+         self.occupation = occupation
+         self.occupation_type = occupation_type
+         self.city = city
+         self.pincode = pincode
+         self.lat = lat
+         self.lng = lng
+         self.first_line = first_line
+         self.last_line = last_line
+         self.land_mark = land_mark
+         self.email = email
+         self.phone = phone

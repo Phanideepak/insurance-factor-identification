@@ -49,7 +49,8 @@ class LifeInsuranceDto(BaseModel):
      basic_sum_assured : int
      duration : int
      interest : float
-     interest_type : str 
+     interest_type : str
+     plan_code : str 
 
 class InsuranceDto(BaseModel):
      insurance_id : int
@@ -64,6 +65,61 @@ class UserDto(BaseModel):
      lastname : str
      email : str
      role : str
+
+class AddCustomerRequest(BaseModel):
+     firstname : str
+     lastname : str
+     healthy : str
+     life_style : str
+     occupation : str
+     occupation_type : str
+     city : str
+     pincode : str
+     lat : str
+     lng : str
+     first_line : str
+     last_line : Optional[str] = None
+     land_mark : str
+     email : str
+     phone : str
+
+
+class UpdateCustomerRequest(BaseModel):
+     id : int
+     firstname : str
+     lastname : str
+     healthy : str
+     life_style : str
+     occupation : str
+     occupation_type : str
+     city : str
+     pincode : str
+     lat : str
+     lng : str
+     first_line : str
+     last_line : Optional[str] = None
+     land_mark : str
+     email : str
+     phone : str
+
+class CustomerDto(BaseModel):
+     id : int
+     firstname : str
+     lastname : str
+     healthy : str
+     life_style : str
+     occupation : str
+     occupation_type : str
+     city : str
+     pincode : str
+     lat : str
+     lng : str
+     first_line : str
+     last_line : Optional[str] = None
+     land_mark : str
+     email : str
+     phone : str
+
 
 class ResponseDto(BaseModel, object):
       status_message : str = 'Success'

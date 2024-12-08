@@ -31,14 +31,14 @@ class InsuranceService:
         return ResponseUtils.wrap('Added Successfully')
 
     def update_insurance_plan(request : UpdateInsuranceRequest, db : Session):
-        insurance  = InsurancePlanRepoService.validate_and_get_by_id(request.id, db)
+        insurance  = InsurancePlanRepoService.validate_and_get_by_id(request.insurance_id, db)
         is_updated = False 
 
         if UpdateUtils.is_different(request.insurance_name, insurance.insurance_name):
             is_updated = True
             insurance.insurance_name = request.insurance_name
         
-        if UpdateUtils.is_different(request.insurance_type, insurance.insurance_type):
+        if UpdateUtils.is_different(request.insurance_type, insurance.insurance_type.name):
             is_updated = True
             insurance.insurance_type = request.insurance_type
         
@@ -64,7 +64,7 @@ class InsuranceService:
                 is_updated = True
                 existing_detail.interest = detail.interest
             
-            if UpdateUtils.is_different(detail.interest_type, existing_detail.interest_type):
+            if UpdateUtils.is_different(detail.interest_type, existing_detail.interest_type.name):
                 is_updated = True
                 existing_detail.interest_type = detail.interest_type
             
@@ -94,5 +94,9 @@ class InsuranceService:
 
     def delete_by_id(id, db : Session):
         insurance = InsurancePlanRepoService.validate_and_get_by_id(id, db)
-        InsurancePlanRepoService.delete_by_id(id, db)
+        try:
+            LifeInsuranceDetailRepoService.delete_by_insurance_id(insurance.id, db)
+            InsurancePlanRepoService.delete_by_id(insurance.id, db)
+        except Exception as e:
+            raise ServiceException(str(e))
         return ResponseUtils.wrap('Deleted Successfully')

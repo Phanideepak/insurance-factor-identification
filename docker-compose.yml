@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  app:
+    image: fastapi-uvicorn-app
+    build:
+      context: .
+    ports:
+      - "8000:8001"
+    environment:
+      WORKERS_PER_CORE: 2
+      MAX_WORKERS: 4

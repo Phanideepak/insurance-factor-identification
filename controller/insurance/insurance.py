@@ -33,14 +33,14 @@ class InsuranceController:
         return responseBody.dict(exclude_none = True)     
     
     
-    @router.get('', summary = 'Get Insurance by Id', dependencies = [Depends(RoleChecker(['ROLE_ADMIN']))])
+    @router.get('', summary = 'Get Insurance by Id', dependencies = [Depends(RoleChecker(['ROLE_ADMIN', 'ROLE_AGENT', 'ROLE_CUSTOMER']))])
     def get_insurance_by_id(id : int, resp : Response, db : Session = Depends(get_db), token_details = Depends(access_token_bearer)):
         responseBody = InsuranceExecutor.get_by_id(id, db)
         resp.status_code = responseBody.status_code
 
         return responseBody.dict(exclude_none = True) 
 
-    @router.get('/all', summary = 'Get All Insurances', dependencies = [Depends(RoleChecker(['ROLE_ADMIN']))])
+    @router.get('/all', summary = 'Get All Insurances', dependencies = [Depends(RoleChecker(['ROLE_ADMIN', 'ROLE_AGENT']))])
     def get_all_insurances(resp : Response, db : Session = Depends(get_db), token_details = Depends(access_token_bearer)):
         responseBody = InsuranceExecutor.get_all(db)
         resp.status_code = responseBody.status_code
