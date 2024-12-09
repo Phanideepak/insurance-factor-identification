@@ -16,9 +16,7 @@ def isLessThan(field, threshold):
 def isGreaterThan(field, threshold):
     return f"{field} cannot be greater than {threshold}"
 
-
 class ValidationUtils:
-
 
     def isEmpty(value : str, field: str):
         if value is None:
@@ -28,7 +26,6 @@ class ValidationUtils:
            if not value:
              raise ValidationException(emptyMessage(field))  
 
-    
     def isNone(value, field: str):
         if value is None:
             raise ValidationException(noneMessage(field))
@@ -40,7 +37,6 @@ class ValidationUtils:
             if value == 0:
                 raise ValidationException(zeroMessage(field))
     
-
     def isTrue(expression : bool, message : str):
         if not expression:
             raise ValidationException(message)

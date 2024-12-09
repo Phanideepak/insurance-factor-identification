@@ -47,3 +47,10 @@ class CustomerController:
         resp.status_code = responseBody.status_code
 
         return responseBody.dict(exclude_none = True)
+
+    @router.get('/premium', summary = 'Get Insurance Premium', dependencies = [Depends(RoleChecker(['ROLE_CUSTOMER', 'ROLE_AGENT', 'ROLE_ADMIN']))])
+    def get_premium(insurance_detail_id, premium_type, resp : Response, db : Session = Depends(get_db), token_details = Depends(access_token_bearer)):
+        responseBody = CustomerExecutor.get_premium(insurance_detail_id, premium_type, db)
+        resp.status_code = responseBody.status_code
+
+        return responseBody.dict(exclude_none = True)

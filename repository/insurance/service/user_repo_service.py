@@ -28,6 +28,9 @@ class UserRepoService:
     def fetch_by_id(id, db : Session):
         return db.query(User).filter(User.id == id).first()
 
+    def delete_by_id(id, db : Session):
+        return db.query(User).filter(User.id == id).delete()
+
     @classmethod 
     def validate_and_get_by_id(cls, id, db : Session):
         user = cls.fetch_by_id(id, db)

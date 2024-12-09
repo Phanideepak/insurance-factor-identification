@@ -62,3 +62,52 @@ CREATE TABLE insurance.customers(
    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY (id)    
 );
+
+
+CREATE TABLE insurance.agents(
+   id int NOT NULL AUTO_INCREMENT,
+   firstname varchar(100) not null,
+   lastname VARCHAR(100) not null,
+   email varchar(100) not null unique,
+   phone varchar(20) not null unique,
+   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   PRIMARY KEY (id)    
+);
+
+CREATE TABLE insurance.orders(
+   id int NOT NULL AUTO_INCREMENT,
+   customer_id int NOT NULL,
+   insurance_id int NOT NULL,
+   sub_insurance_id int NOT NULL,
+   amount_to_pay float NOT NULL,
+   amount_paid float NOT NULL DEFAULT 0,
+   order_status enum('UNDER_REVIEW','PENDING', 'PAYMENT_FAILED', 'CONFIRMED', 'CANCELLED') NOT NULL, 
+   payment_status enum('NOT_PAID', 'PAID') NOT NULL,
+   premium_type enum('MONTHLY','QUARTERLY', 'HALF_YEARLY', 'ANNUAL') NOT NULL,
+   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   created_by int NOT NULL,
+   approved_by int NULL,
+   updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   FOREIGN KEY(customer_id) REFERENCES insurance.customers(id),
+   FOREIGN KEY(insurance_id) REFERENCES insurance.insurance_plan(id),
+   FOREIGN KEY(created_by) REFERENCES insurance.users(id),
+   FOREIGN KEY(approved_by) REFERENCES insurance.users(id),
+   PRIMARY KEY (id),
+   CONSTRAINT customer_insurance_sub_uk UNIQUE KEY (customer_id,insurance_id,sub_insurance_id) 
+);
+
+CREATE TABLE insurance.tasks(
+   id int NOT NULL AUTO_INCREMENT,
+   order_id int NOT NULL,
+   premium_amount_to_pay float NOT NULL,
+   premium_amount_paid float NOT NULL DEFAULT 0,
+   premium_type enum('MONTHLY','QUARTERLY', 'HALF_YEARLY', 'ANNUAL') NOT NULL,
+   premium_penalty float NOT NULL DEFAULT 0,
+   task_status enum('INITIALISED','DELAYED', 'DELAYED_PAYMENT','AWAITING_PAYMENT', 'INFORCE') NOT NULL,
+   payment_status enum('NOT_PAID', 'PAID') NOT NULL,
+   paid_at timestamp NULL,
+   created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   PRIMARY KEY (id)    
+);

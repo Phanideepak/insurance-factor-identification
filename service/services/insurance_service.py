@@ -26,7 +26,7 @@ class InsuranceService:
                 LifeInsuranceDetailRepoService.add(Mapper.toLifeInsuranceDetail(insurance, detail), db)
 
         except Exception as e:
-            raise ServiceException(str(e))
+            raise ServiceException(errorMessage = str(e))
 
         return ResponseUtils.wrap('Added Successfully')
 
@@ -98,5 +98,5 @@ class InsuranceService:
             LifeInsuranceDetailRepoService.delete_by_insurance_id(insurance.id, db)
             InsurancePlanRepoService.delete_by_id(insurance.id, db)
         except Exception as e:
-            raise ServiceException(str(e))
+            raise ServiceException(errorMessage = str(e))
         return ResponseUtils.wrap('Deleted Successfully')

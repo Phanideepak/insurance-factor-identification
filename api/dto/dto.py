@@ -1,5 +1,5 @@
 from typing import Optional, TypeVar, List
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 T = TypeVar('T')
 
@@ -58,6 +58,21 @@ class InsuranceDto(BaseModel):
      insurance_type : str
      description : str
      life_insurance_details : Optional[List[LifeInsuranceDto]] = None
+
+class InsurancePremiumDetailDto(BaseModel):
+     insurance_id : int
+     insurance_id : int
+     insurance_name : str
+     insurance_type : str
+     description : str
+     basic_sum_assured : int
+     duration : int
+     interest : float
+     interest_type : str
+     plan_code : str
+     premium_amount : float
+     premium_type : str
+
 
 class UserDto(BaseModel):
      id : int 
@@ -120,6 +135,46 @@ class CustomerDto(BaseModel):
      email : str
      phone : str
 
+class AddAgentRequest(BaseModel):
+     firstname : str
+     lastname : str
+     email : str
+     phone : str
+
+class UpdateAgentRequest(BaseModel):
+     id : int
+     firstname : str
+     lastname : str
+     email : str
+     phone : str
+
+class AgentDto(BaseModel):
+     id : int
+     firstname : str
+     lastname : str
+     email : str
+     phone : str
+
+class CreateOrderRequest(BaseModel):
+     customer_id: int
+     insurance_detail_id : int
+     premium_type : str
+
+class OrderPaymentRequest(BaseModel):
+     order_id : int
+     amount_paid : int
+
+class OrderDto(BaseModel):
+     order_id : int
+     status : str
+     payment_status : str
+     premium_type : str
+     customer : CustomerDto
+     agent : AgentDto
+     created_by : UserDto
+     approved_by : Optional[UserDto] = None
+     insurance : InsurancePremiumDetailDto
+     
 
 class ResponseDto(BaseModel, object):
       status_message : str = 'Success'

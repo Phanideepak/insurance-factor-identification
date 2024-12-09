@@ -28,3 +28,9 @@ class NoPermissionException(ServiceException):
      def __init__(self, error_message = None):
           self.error_message = error_message
           super().__init__('Permission Error', 403, error_message)
+
+
+class StateMachineException(ServiceException):
+      def __init__(self, error_message = None):
+          self.error_message = error_message
+          super().__init__('State Machine Error', 400, error_message)
