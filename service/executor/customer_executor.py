@@ -87,3 +87,10 @@ class CustomerExecutor:
         ValidationUtils.isZero(id, 'id')
 
         return CustomerService.delete_by_id(id, db)
+    
+    def get_premium(insurance_detail_id, premium_type, db : Session):
+        ValidationUtils.isZero(insurance_detail_id, 'insurance_detail_id')
+        ValidationUtils.isEmpty(premium_type, 'premium_type')
+        premium_type = premium_type.strip()
+
+        return CustomerService.get_premium(insurance_detail_id, premium_type, db)

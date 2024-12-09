@@ -24,8 +24,22 @@ Topics that are Covered:
    - Delete Insurance by id API (`ADMIN`)
 
 3. Customer API
-   - Add Customer API
-   - Edit Customer API
-   - Get All Customers API
-   - Get Customer By id API
-   - Delete Customer by id API
+   - Add Customer API (`ADMIN`)
+   - Edit Customer API (`ADMIN`)
+   - Get All Customers API (`ADMIN`, `AGENT`)
+   - Get Customer By id API (`ADMIN`, `AGENT`, `CUSTOMER`)
+   - Get Premium Enquiry API (`CUSTOMER`, `AGENT`, `ADMIN`)
+   - Delete Customer by id API (`ADMIN`)
+
+4. Agent API
+   - Add Agent API (`ADMIN`)
+   - Edit Agent API (`ADMIN`)
+   - Get All Agents API (`ADMIN`)
+   - Get Agent By Id API (`ADMIN`)
+   - Delete Agent by id API (`ADMIN`)
+
+5. Order API
+   - Create Order API (`AGENT`)
+   - Pay Order API (`CUSTOMER`)
+   - Get Order by API (`ADMIN`, `AGENT`, `CUSTOMER`)
+   - Approve Order API  (`ADMIN`)

@@ -26,7 +26,7 @@ class AuthService:
         try:
             UserRepoService.insert(User(email = request.email, firstname = request.firstname, lastname = request.lastname, password = bcryptContext.hash(request.password), role = Role.ROLE_ADMIN), db)
         except Exception as e:
-            raise ServiceException(str(e))
+            raise ServiceException(errorMessage = str(e))
 
         access_token = create_access_token(username=request.email, expires_delta=timedelta(1), role = Role.ROLE_ADMIN.name)
         refresh_token = create_access_token(username=request.email, expires_delta=timedelta(7), role = Role.ROLE_ADMIN.name, refresh=True)
