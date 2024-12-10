@@ -1,5 +1,0 @@
-# fast-api-python-boiler
-
-ADMIN Header:
-
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbjEyM0BnbWFpbC5jb20iLCJyb2xlIjoiUk9MRV9BRE1JTiIsInJlZnJlc2giOmZhbHNlLCJleHAiOjE3MzM1NzM3OTV9.ZeKM7o7VjEJoNTJgCIXZQZzKA1B3oD0Xo_uJrGcoHSQ
