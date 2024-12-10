@@ -1,4 +1,4 @@
-# fast-api-python-boiler
+# insurance-factor-identification
 
 Topics that are Covered:
 
@@ -15,6 +15,8 @@ Topics that are Covered:
 1. Auth API
    - Signup API
    - Login API
+   - Forget Password API
+   - Reset Password API
 
 2. Insurance API
    - Add Insurance API (`ADMIN`)

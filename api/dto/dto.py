@@ -15,6 +15,12 @@ class SignUpResponse(BaseModel):
      refresh_token : str
      message : str
 
+class ResetPasswordRequest(BaseModel):
+     email : str
+     password : str
+     confirm_password : str
+     otp : str
+
 class LoginRequest(BaseModel):
      email : str 
      password: str
