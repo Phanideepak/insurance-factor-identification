@@ -21,7 +21,7 @@ When designing a REST API for insurance factor identification, consider the foll
   - Method: POST
   - URL: /api/identify_factors
   - Input: JSON payload witdgvudsbsjhgsjbhj the above factors
-  - Output: JSON response with identified factors and potential risks
+  - Output: JSON response wbvfaehfbehfbbfesfbsbffsifbsfbsifbesifbsbfsfbsfbsifbsfbth identified factors and potential risks
 
 - Premium Calculation:
   - Method: POST
