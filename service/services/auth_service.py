@@ -13,6 +13,7 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from app_secrets.service.jwt_service import create_access_token
 from service.utils.validation_utils import ValidationUtils
+from motor.motor_asyncio import AsyncIOMotorDatabase
 
 bcryptContext = CryptContext(schemes=['bcrypt'])
 
@@ -20,7 +21,7 @@ bcryptContext = CryptContext(schemes=['bcrypt'])
 class AuthService:
 
 
-    def sign_up(request: SignUpRequest, db : Session):
+    def sign_up(request: SignUpRequest, db : Session, mongo_db : AsyncIOMotorDatabase):
         if UserRepoService.fetch_by_email(request.email, db) is not None:
             raise ValidationException(MessageUtils.entity_already_exists('User', 'email', request.email))
 
@@ -36,7 +37,7 @@ class AuthService:
 
         return ResponseUtils.wrap(SignUpResponse(message= MessageUtils.signup_success_message(), access_token = access_token, refresh_token = refresh_token))
 
-    def sign_in(request : LoginRequest, db : Session):
+    def sign_in(request : LoginRequest, db : Session, mongo_db : AsyncIOMotorDatabase):
         user = UserRepoService.validate_and_get_by_email(request.email, db)
 
         ValidationUtils.isTrue(bcryptContext.verify(request.password, user.password), MessageUtils.invalid_password())
@@ -47,7 +48,7 @@ class AuthService:
         return ResponseUtils.wrap(LoginResponse(message = MessageUtils.login_success_message(), access_token = access_token, refresh_token = refresh_token))
     
 
-    def forget_password(email, db : Session, cache : Redis):
+    def forget_password(email, db : Session, cache : Redis, mongo_db : AsyncIOMotorDatabase):
         user = UserRepoService.validate_and_get_by_email(email, db)
 
         if CacheService.has('RESET_PASSWORD_' + email, cache):
@@ -57,7 +58,7 @@ class AuthService:
 
         return ResponseUtils.wrap('Password reset otp has been sent to the mail')
     
-    def reset_password(request : ResetPasswordRequest, db : Session, cache : Redis):
+    def reset_password(request : ResetPasswordRequest, db : Session, cache : Redis, mongo_db : AsyncIOMotorDatabase):
         user = UserRepoService.validate_and_get_by_email(request.email, db)
        
         if not CacheService.has('RESET_PASSWORD_' + request.email, cache):

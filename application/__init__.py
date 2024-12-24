@@ -8,6 +8,7 @@ from repository.insurance.model import insurance
 from api.exception.errors import ServiceException
 from api.advice.global_exception_advice import create_exception_handler
 from config.database import engine
+from middleware.middleware import LoggingMiddleware 
 
 
 
@@ -19,5 +20,6 @@ def create_app():
     app.include_router(CustomerController.router)
     app.include_router(AgentController.router)
     app.include_router(OrderController.router)
+    app.add_middleware(LoggingMiddleware)
     app.add_exception_handler(exc_class_or_status_code =  ServiceException, handler =  create_exception_handler())
     return app
