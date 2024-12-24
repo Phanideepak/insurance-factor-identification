@@ -44,7 +44,7 @@ class ResponseMapper:
         return [cls.toAgentDto(agent) for agent in agents]   
     
     def toCustomerDto(customer : Customer):
-        return CustomerDto(id = customer.id, firstname=customer.firstname, lastname=customer.lastname, healthy=customer.healthy.name, life_style=customer.life_style.name, occupation=customer.occupation, occupation_type=customer.occupation_type.name, city = customer.city, pincode = customer.pincode, lat = customer.lat, lng = customer.lng, first_line=customer.first_line, last_line=customer.last_line, land_mark=customer.land_mark, email=customer.email, phone = customer.email) 
+        return CustomerDto(id = customer.id, firstname=customer.firstname, lastname=customer.lastname, healthy=customer.healthy.name, life_style=customer.life_style.name, occupation=customer.occupation, occupation_type=customer.occupation_type.name, city = customer.city, pincode = customer.pincode, lat = customer.lat, lng = customer.lng, first_line=customer.first_line, last_line=customer.last_line, land_mark=customer.land_mark, email=customer.email, phone = customer.phone) 
     
     @classmethod
     def toCustomerDtos(cls, customers : List[Customer]):

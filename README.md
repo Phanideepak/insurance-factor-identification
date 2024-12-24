@@ -9,6 +9,8 @@ Topics that are Covered:
 - Docker Integration.
 - Redis Integration.
 - Global exception handler on rest api
+- Integrating Mongodb
+- Request and Response Logginng in Mongodb
 
 ## List of CRUD API's Created
 
