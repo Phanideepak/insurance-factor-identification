@@ -61,12 +61,13 @@ class LoggingMiddleware(BaseHTTPMiddleware):
 
         response_dict['status_code'] = response.status_code
 
+        json_body = {}
 
         if 'application/json' in response_content_type:
             try:
-               json_body = json.loads(response_body_text) if response_body_text else None
+               json_body = json.loads(response_body_text) if response_body_text else {}
             except:
-                json_body = None
+                json_body = {}
         elif 'text/html' in response_content_type:
             response_dict['html'] = response_body_text
         else:
